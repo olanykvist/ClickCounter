@@ -2,12 +2,10 @@
 namespace ClickCounter.Hooks
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Runtime.InteropServices;
 
     public delegate void ClickEventHandler(object sender, EventArgs e);
+
+    internal delegate int LowLevelMouseProc(int nCode, IntPtr wParam, IntPtr lParam);
 
     public class MouseHook
     {
