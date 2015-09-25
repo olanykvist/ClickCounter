@@ -1,5 +1,4 @@
 ﻿
-
 namespace ClickCounter.WinClient
 {
     using System;
@@ -12,7 +11,12 @@ namespace ClickCounter.WinClient
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            using (var app = new TrayApplication())
+            {
+                app.Display();
+                Application.Run();
+            }
         }
     }
 }
