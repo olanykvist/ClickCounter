@@ -2,14 +2,18 @@
 
 namespace ClickCounter.WinClient
 {
+    using Hooks;
     using System;
     using System.Drawing;
     using System.Windows.Forms;
+    using System.IO;
 
     internal class TrayApplication : IDisposable
     {
         private NotifyIcon icon;
         private ContextMenu menu;
+        private MouseHook hook;
+        private StreamWriter writer;
 
         public TrayApplication()
         {
@@ -20,6 +24,17 @@ namespace ClickCounter.WinClient
             icon.Text = "ClickCounter";
             icon.Icon = new Icon(SystemIcons.Shield, new Size(16, 16));
             icon.ContextMenu = menu;
+
+            writer = new StreamWriter(File.Open(@"log.txt", FileMode.Append, FileAccess.Write));
+
+            hook = new MouseHook();
+            hook.Click += Hook_Click;
+        }
+
+        private void Hook_Click(object sender, EventArgs e)
+        {
+            var date = DateTime.Now.ToString();
+            writer.WriteLine(date);
         }
 
         public void Display()
@@ -43,6 +58,7 @@ namespace ClickCounter.WinClient
                 {
                     // TODO: dispose managed state (managed objects).
                     icon.Dispose();
+                    writer.Dispose();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.

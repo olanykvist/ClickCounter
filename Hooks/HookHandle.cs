@@ -1,25 +1,21 @@
 ﻿
 namespace ClickCounter.Hooks
 {
-    using System;
     using Microsoft.Win32.SafeHandles;
 
     internal class HookHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
-        public HookHandle(bool ownsHandle)
-            : base(ownsHandle)
+        public HookHandle() : base(true)
         {
         }
 
-        protected override void Dispose(bool disposing)
+        public HookHandle(bool ownsHandle) : base(ownsHandle)
         {
-            base.Dispose(disposing);
-
         }
 
         protected override bool ReleaseHandle()
         {
-            throw new NotImplementedException();
+            return Win32.UnhookWindowsHookEx(handle);
         }
     }
 }
