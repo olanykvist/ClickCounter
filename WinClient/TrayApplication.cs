@@ -31,10 +31,11 @@ namespace ClickCounter.WinClient
             hook.Click += Hook_Click;
         }
 
-        private void Hook_Click(object sender, EventArgs e)
+        private void Hook_Click(object sender, GlobalMouseEventArgs e)
         {
             var date = DateTime.Now.ToString();
-            writer.WriteLine(date);
+            var window = e.WindowTitle;
+            writer.WriteLine(string.Format("{0};{1}", date.ToString(), window));
         }
 
         public void Display()

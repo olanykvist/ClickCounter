@@ -24,6 +24,9 @@ namespace ClickCounter.Hooks
         public static extern IntPtr ChildWindowFromPoint(IntPtr hWndParent, Point point);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr WindowFromPoint(Point point);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
     }
 }
